@@ -1,10 +1,10 @@
-# RspecLister
+# rspec_lister
 
-TODO: Write a gem description
+This gem provides a command to list out your rspec tests.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your application's Gemfile in the test group:
 
     gem 'rspec_lister'
 
@@ -18,7 +18,19 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Run `rspec_lister` and you will be presented with a list of rspec
+tests that your app has. For example:
+
+    spec/lib/foo_spec.rb:3
+    spec/lib/foo_spec.rb:6
+    spec/lib/foo_spec.rb:9
+    spec/lib/foo_spec.rb:12
+    spec/lib/bar_spec.rb:10
+    spec/lib/bar_spec.rb:12
+    etc...
+
+This list can then be fed to other programs that can operate on it.
+Since I think it has value in itself, making a gem for it.
 
 ## Contributing
 
