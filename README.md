@@ -32,6 +32,10 @@ tests that your app has. For example:
 This list can then be fed to other programs that can operate on it.
 Since I think it has value in itself, making a gem for it.
 
+If `rspec_lister` is run with arguments, only list specs in that spec directory.
+For example, `rspec_lister spec/models` will only list specs that live under
+`spec/models`.
+
 ## Contributing
 
 1. Fork it
