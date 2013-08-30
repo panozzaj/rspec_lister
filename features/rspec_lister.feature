@@ -26,3 +26,11 @@ Feature: Running rspec_lister on the command-line
     ./spec/lib/calculator_spec.rb:18
     """
     And the output should not contain "./spec/lib/coffee_mug_spec.rb:7"
+
+  Scenario: Running with help flag
+    Given I am in the sample Ruby app
+    When I run `rspec_lister --help`
+    Then the output should contain:
+    """
+    Usage: rspec_lister
+    """
