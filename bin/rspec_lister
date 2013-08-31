@@ -54,24 +54,25 @@ end
 
 spec_directory = ARGV[0] || './spec'
 
-if output_file
-  `RSPEC_LISTER_TEMPFILE_PATH="#{output_file}" \
+with_tempfile do |tempfile|
+  `RSPEC_LISTER_TEMPFILE_PATH="#{tempfile.path}" \
    rspec #{spec_directory} \
    --require 'rspec_lister/list_all_examples_formatter.rb' \
    --format ListAllExamplesFormatter &>/dev/null`
-else
-  with_tempfile do |tempfile|
-    `RSPEC_LISTER_TEMPFILE_PATH="#{tempfile.path}" \
-     rspec #{spec_directory} \
-     --require 'rspec_lister/list_all_examples_formatter.rb' \
-     --format ListAllExamplesFormatter &>/dev/null`
 
-    file_specs = File.read(tempfile.path).split("\n").map{|s| s.split(":") }
+  file_specs = File.read(tempfile.path).split("\n").map{|s| s.split(":") }
 
-    file_specs.uniq.sort! do |spec1, spec2|
-      spec1[0] <=> spec2[0] || spec1[1].to_i <=> spec2[1].to_i
+  file_specs.uniq.sort! do |spec1, spec2|
+    spec1[0] <=> spec2[0] || spec1[1].to_i <=> spec2[1].to_i
+  end
+
+  if output_file
+    File.open(output_file, 'w') do |f|
+      file_specs.each do |file_spec|
+        f.puts file_spec.join(':')
+      end
     end
-
+  else
     file_specs.each do |file_spec|
       puts file_spec.join(':')
     end
