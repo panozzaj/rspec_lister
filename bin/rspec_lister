@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'rspec_lister'
-
 def usage
   <<-EOS
 Usage: rspec_lister [<options>] [spec path]
@@ -37,6 +35,8 @@ if ARGV[0] == '--output-file' || ARGV[0] == '-o'
   output_file = ARGV.shift(2)[1]
 end
 
+
+require 'rspec_lister'
 require 'tempfile'
 require 'fileutils'
 require 'date'
