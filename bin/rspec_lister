@@ -31,9 +31,12 @@ if ARGV[0] == '-v' || ARGV[0] == '--version'
 end
 
 require 'tempfile'
+require 'fileutils'
+require 'date'
 
 def with_tempfile &block
-  file = Tempfile.new('tmpfile')
+  file = Tempfile.new("rspec_lister")
+  FileUtils.mkdir_p(File.dirname(file.path))
   begin
     yield file
   ensure
@@ -42,8 +45,13 @@ def with_tempfile &block
   end
 end
 
+spec_directory = ARGV[0] || './spec'
+
 with_tempfile do |tempfile|
-  `rspec #{ARGV[0] || 'spec'} --require 'rspec_lister/list_all_examples_formatter.rb' --format ListAllExamplesFormatter > #{tempfile.path}`
+  `RSPEC_LISTER_TEMPFILE_PATH="#{tempfile.path}" \
+   rspec #{spec_directory} \
+   --require 'rspec_lister/list_all_examples_formatter.rb' \
+   --format ListAllExamplesFormatter &>/dev/null`
 
   file_specs = File.read(tempfile.path).split("\n").map{|s| s.split(":") }
 
