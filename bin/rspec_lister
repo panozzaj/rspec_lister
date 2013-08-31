@@ -4,6 +4,8 @@ def usage
   <<-EOS
 Usage: rspec_lister [<options>] [spec path]
 
+List all rspec tests under the specified spec path.
+
 The spec path defaults to './spec' (to look at all specs),
 but if you want to list specs in a subdirectory,
 specify the full relative path to that directory.
