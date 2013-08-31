@@ -2,6 +2,7 @@
 
 This gem provides a command to list out your rspec tests.
 
+
 ## Installation
 
 Add this line to your application's Gemfile in the test group:
@@ -15,6 +16,7 @@ And then execute:
 Or install it yourself as:
 
     $ gem install rspec_lister
+
 
 ## Usage
 
@@ -35,6 +37,7 @@ Since I think it has value in itself, making a gem for it.
 If `rspec_lister` is run with arguments, only list specs in that spec directory.
 For example, `rspec_lister spec/models` will only list specs that live under
 `spec/models`.
+
 
 ## Contributing
 
