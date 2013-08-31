@@ -34,3 +34,33 @@ Feature: Running rspec_lister on the command-line
     """
     Usage: rspec_lister
     """
+
+  Scenario: Running with --output-file flag outputs to that file
+    Given I am in the sample Ruby app
+    Given a directory named "foo/bar"
+    When I run `rspec_lister --output-file foo/bar/baz.txt`
+    Then there should be no output
+    And a file named "foo/bar/baz.txt" should exist
+    And the file "foo/bar/baz.txt" should contain:
+    """
+    ./spec/lib/calculator_spec.rb:6
+    ./spec/lib/calculator_spec.rb:10
+    ./spec/lib/calculator_spec.rb:14
+    ./spec/lib/calculator_spec.rb:18
+    ./spec/lib/coffee_mug_spec.rb:7
+    """
+
+  Scenario: Running with --output-file flag and a filter outputs filtered results to that file
+    Given I am in the sample Ruby app
+    Given a directory named "foo/bar"
+    When I run `rspec_lister --output-file foo/bar/baz.txt spec/lib/calculator_spec.rb`
+    Then there should be no output
+    And a file named "foo/bar/baz.txt" should exist
+    And the file "foo/bar/baz.txt" should contain:
+    """
+    ./spec/lib/calculator_spec.rb:6
+    ./spec/lib/calculator_spec.rb:10
+    ./spec/lib/calculator_spec.rb:14
+    ./spec/lib/calculator_spec.rb:18
+    """
+    And the output should not contain "./spec/lib/coffee_mug_spec.rb:7"

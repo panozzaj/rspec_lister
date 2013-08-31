@@ -9,3 +9,10 @@ Given /^I am in the sample Ruby app$/ do
   fixture_files = Dir.glob(File.join('fixtures', 'sample_ruby_app', '*'))
   FileUtils.cp_r fixture_files, aruba_dir
 end
+
+Then /^there should be no output$/ do
+  steps %{
+    Then the stdout should not contain anything
+    Then the stderr should not contain anything
+  }
+end
